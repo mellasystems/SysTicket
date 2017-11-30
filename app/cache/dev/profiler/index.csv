@@ -1,0 +1,12 @@
+5ca332,192.168.56.1,GET,http://systicket/app_dev.php/,1511484495,,200
+03faaa,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511484508,2f6fcd,200
+2f6fcd,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511484508,,404
+f9532a,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486163,8312f4,200
+8312f4,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486163,,404
+f54806,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486182,e077d4,200
+e077d4,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486183,,404
+befb30,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486502,fe7909,200
+fe7909,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486502,,404
+eb704a,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486508,b9c630,200
+b9c630,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486508,,404
+67c35f,192.168.56.1,GET,http://systicket/app_dev.php/usuario,1511486567,,200
