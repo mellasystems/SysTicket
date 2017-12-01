@@ -1,25 +1,25 @@
 <?php
 
 namespace AppBundle\Controller;
-use AppBundle\Entity\Usuario;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
-class UsuarioController extends Controller
+class NotaController extends Controller
 {
     /**
-     * @Route("usuario", name="usuariolista")
+     * @Route("/usuario", name="crear_usuario", options={"expose"=true})
+     * @Method("GET")
      */
     public function indexAction(Request $request)
     {
         // just setup a fresh $task object (remove the dummy data)
-    $usuario = new Usuario();
+    /*$usuario = new Usuario();
 
     $form = $this->createFormBuilder($usuario)
         ->add('nombres', TextType::class)
@@ -44,10 +44,8 @@ class UsuarioController extends Controller
 
         return $this->redirectToRoute('task_success');
     }
-
-    return $this->render('default/new.html.twig', array(
-        'form' => $form->createView(),
-    ));
+    */
+    return $this->render('AppBundle:Usuario:usuario.html.twig');
 
         /* replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(

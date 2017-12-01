@@ -116,8 +116,41 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         // usuariolista
         if ($pathinfo === '/usuario') {
-            return array (  '_controller' => 'AppBundle\\Controller\\UsuarioController::indexAction',  '_route' => 'usuariolista',);
+            return array (  '_controller' => 'AppBundle\\Controller\\RoleController::indexAction',  '_route' => 'usuariolista',);
         }
+
+        // crear_ticket
+        if ($pathinfo === '/ticket') {
+            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'HEAD'));
+                goto not_crear_ticket;
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\TicketController::indexAction',  '_route' => 'crear_ticket',);
+        }
+        not_crear_ticket:
+
+        // crear_nota
+        if ($pathinfo === '/nota') {
+            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'HEAD'));
+                goto not_crear_nota;
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\NotaController::indexAction',  '_route' => 'crear_nota',);
+        }
+        not_crear_nota:
+
+        // fos_js_routing_js
+        if (0 === strpos($pathinfo, '/js/routing') && preg_match('#^/js/routing(?:\\.(?P<_format>js|json))?$#s', $pathinfo, $matches)) {
+            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'HEAD'));
+                goto not_fos_js_routing_js;
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'fos_js_routing_js')), array (  '_controller' => 'fos_js_routing.controller:indexAction',  '_format' => 'js',));
+        }
+        not_fos_js_routing_js:
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
