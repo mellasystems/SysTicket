@@ -23,14 +23,8 @@ use Symfony\Component\Form\FormView;
  */
 class FormHelper extends Helper
 {
-    /**
-     * @var FormRendererInterface
-     */
     private $renderer;
 
-    /**
-     * @param FormRendererInterface $renderer
-     */
     public function __construct(FormRendererInterface $renderer)
     {
         $this->renderer = $renderer;
@@ -198,8 +192,6 @@ class FormHelper extends Helper
     /**
      * Renders the errors of the given view.
      *
-     * @param FormView $view The view to render the errors for
-     *
      * @return string The HTML markup
      */
     public function errors(FormView $view)
@@ -223,9 +215,9 @@ class FormHelper extends Helper
     /**
      * Renders a block of the template.
      *
-     * @param FormView $view      The view for determining the used themes.
-     * @param string   $blockName The name of the block to render.
-     * @param array    $variables The variable to pass to the template.
+     * @param FormView $view      The view for determining the used themes
+     * @param string   $blockName The name of the block to render
+     * @param array    $variables The variable to pass to the template
      *
      * @return string The HTML markup
      */
@@ -257,7 +249,7 @@ class FormHelper extends Helper
      *
      * @return string A CSRF token
      *
-     * @throws \BadMethodCallException When no CSRF provider was injected in the constructor.
+     * @throws \BadMethodCallException when no CSRF provider was injected in the constructor
      */
     public function csrfToken($intention)
     {

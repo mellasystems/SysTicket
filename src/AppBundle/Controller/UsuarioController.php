@@ -1,55 +1,106 @@
 <?php
-
 namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\Usuario;
+use AppBundle\Form\UsuarioType;
+use Symfony\Component\Form\Form;
 
-
-class NotaController extends Controller
+/**
+ * @Route("/usuario")
+ * 
+ */
+class UsuarioController extends Controller
 {
+
+    //api
+    // APIs
+
     /**
-     * @Route("/usuario", name="crear_usuario", options={"expose"=true})
+     * @Route("/", name="lista_usuario")
      * @Method("GET")
+     * @param Request $request
+     * @return JsonResponse
      */
     public function indexAction(Request $request)
     {
-        // just setup a fresh $task object (remove the dummy data)
-    /*$usuario = new Usuario();
+        $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findAll();
+        $usuarioD = json_decode($this->get('serializer')->serialize($usuario, 'json'), true);
 
-    $form = $this->createFormBuilder($usuario)
-        ->add('nombres', TextType::class)
-        ->add('apellidos', TextType::class)
-        ->add('usuario', TextType::class)
-        //->add('dueDate', DateType::class)
-        ->add('Guardar', SubmitType::class, array('label' => 'Crear Usuario'))
-        ->getForm();
-
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        // $form->getData() holds the submitted values
-        // but, the original `$task` variable has also been updated
-        $task = $form->getData();
-
-        // ... perform some action, such as saving the task to the database
-        // for example, if Task is a Doctrine entity, save it!
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($task);
-        // $em->flush();
-
-        return $this->redirectToRoute('task_success');
+        return new JsonResponse($usuarioD);
     }
-    */
-    return $this->render('AppBundle:Usuario:usuario.html.twig');
 
-        /* replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));*/
+
+    /**
+     * @Route("/{id}", name="get_usuario", requirements={"id"="\d+"} )
+     * @Method("GET")
+     * @param Request $request
+     * @param Usuario $usuario
+     * @return JsonResponse
+     */
+    public function getUsuario(Request $request, Usuario $usuario)
+    {
+        $usuarioJ = json_decode($this->get('serializer')->serialize($usuario, 'json'), true);
+        return new JsonResponse($usuarioJ);
     }
+
+    /**
+     * @Route("/", name="crear_usuario", options={"expose"=true})
+     * @param Request $request
+     * @Method({"post"})
+     *
+     * @return JsonResponse
+     */
+    public function crearUsuario(Request $request)
+    {
+
+        $data = json_decode($request->getContent(), true);
+
+        $usuario = new Usuario();
+
+        $form = $this->createForm(UsuarioType::class, $usuario);
+
+        $form->submit($data);
+
+        if ($form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($usuario);
+            $em->flush();
+        } else {
+            dump("novalido");
+            dump($this->getFormErrors($form));
+        }
+
+        die;
+
+        $nuevoUsuario = json_decode($this->get('serializer')->serialize($usuario, 'json'), true);
+
+        return new JsonResponse($nuevoUsuario);
+
+    }
+
+    private function getFormErrors(Form $form)
+    {
+
+        $errors = array();
+        foreach ($form->getErrors() as $error) {
+            $errors[] = $error->getMessage();
+        }
+        foreach ($form->all() as $childForm) {
+            if ($childForm instanceof FormInterface) {
+                if ($childErrors = $this->getFormErrors($childForm)) {
+                    #$errors[$childForm->getName()] = $childErrors;
+                    foreach ($childErrors as $childError) {
+                        $errors[] = $childError;
+                    }
+                }
+            }
+        }
+        return $errors;
+    }
+
 }

@@ -36,7 +36,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'nombre', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'departamentoProyecto', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'descripcion');
+            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'nombre', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'departamentoProyecto', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'descripcion'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'nombre', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'departamentoProyecto', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'descripcion');
+        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'nombre', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'departamentoProyecto', '' . "\0" . 'AppBundle\\Entity\\Role' . "\0" . 'descripcion'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function setNombre($nombre)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNombre', array($nombre));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNombre', [$nombre]);
 
         return parent::setNombre($nombre);
     }
@@ -205,7 +205,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function getNombre()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNombre', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNombre', []);
 
         return parent::getNombre();
     }
@@ -216,7 +216,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function setDepartamentoProyecto($departamentoProyecto)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDepartamentoProyecto', array($departamentoProyecto));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDepartamentoProyecto', [$departamentoProyecto]);
 
         return parent::setDepartamentoProyecto($departamentoProyecto);
     }
@@ -227,7 +227,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function getDepartamentoProyecto()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepartamentoProyecto', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepartamentoProyecto', []);
 
         return parent::getDepartamentoProyecto();
     }
@@ -238,7 +238,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function setDescripcion($descripcion)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescripcion', array($descripcion));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescripcion', [$descripcion]);
 
         return parent::setDescripcion($descripcion);
     }
@@ -249,7 +249,7 @@ class Role extends \AppBundle\Entity\Role implements \Doctrine\ORM\Proxy\Proxy
     public function getDescripcion()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDescripcion', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDescripcion', []);
 
         return parent::getDescripcion();
     }

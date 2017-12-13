@@ -33,8 +33,6 @@ class ContainerAwareHttpKernel extends HttpKernel
     protected $container;
 
     /**
-     * Constructor.
-     *
      * @param EventDispatcherInterface    $dispatcher         An EventDispatcherInterface instance
      * @param ContainerInterface          $container          A ContainerInterface instance
      * @param ControllerResolverInterface $controllerResolver A ControllerResolverInterface instance
@@ -68,6 +66,11 @@ class ContainerAwareHttpKernel extends HttpKernel
         try {
             $response = parent::handle($request, $type, $catch);
         } catch (\Exception $e) {
+            $this->container->set('request', null, 'request');
+            $this->container->leaveScope('request');
+
+            throw $e;
+        } catch (\Throwable $e) {
             $this->container->set('request', null, 'request');
             $this->container->leaveScope('request');
 

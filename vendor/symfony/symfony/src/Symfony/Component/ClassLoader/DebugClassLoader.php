@@ -31,8 +31,6 @@ class DebugClassLoader
     private $classFinder;
 
     /**
-     * Constructor.
-     *
      * @param object $classFinder
      */
     public function __construct($classFinder)
@@ -89,7 +87,7 @@ class DebugClassLoader
      */
     public function findFile($class)
     {
-        return $this->classFinder->findFile($class);
+        return $this->classFinder->findFile($class) ?: null;
     }
 
     /**

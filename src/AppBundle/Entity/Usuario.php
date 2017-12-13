@@ -280,4 +280,3 @@ class Usuario
         return $this->fechaRegistro;
     }
 }
-

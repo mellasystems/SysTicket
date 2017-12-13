@@ -36,7 +36,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'ticketId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'usuarioId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'fecha', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'estado');
+            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'ticketId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'usuarioId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'fecha', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'estado'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'ticketId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'usuarioId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'fecha', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'estado');
+        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'ticketId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'usuarioId', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'fecha', '' . "\0" . 'AppBundle\\Entity\\HistorialTicket' . "\0" . 'estado'];
     }
 
     /**
@@ -97,7 +97,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function setTicketId($ticketId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTicketId', array($ticketId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTicketId', [$ticketId]);
 
         return parent::setTicketId($ticketId);
     }
@@ -205,7 +205,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function getTicketId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTicketId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTicketId', []);
 
         return parent::getTicketId();
     }
@@ -216,7 +216,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function setUsuarioId($usuarioId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsuarioId', array($usuarioId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsuarioId', [$usuarioId]);
 
         return parent::setUsuarioId($usuarioId);
     }
@@ -227,7 +227,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function getUsuarioId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsuarioId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsuarioId', []);
 
         return parent::getUsuarioId();
     }
@@ -238,7 +238,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function setFecha($fecha)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFecha', array($fecha));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFecha', [$fecha]);
 
         return parent::setFecha($fecha);
     }
@@ -249,7 +249,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function getFecha()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFecha', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFecha', []);
 
         return parent::getFecha();
     }
@@ -260,7 +260,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function setEstado($estado)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEstado', array($estado));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEstado', [$estado]);
 
         return parent::setEstado($estado);
     }
@@ -271,7 +271,7 @@ class HistorialTicket extends \AppBundle\Entity\HistorialTicket implements \Doct
     public function getEstado()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEstado', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEstado', []);
 
         return parent::getEstado();
     }

@@ -63,4 +63,3 @@ class CategoriaTicket
         return $this->nombreCategoria;
     }
 }
-

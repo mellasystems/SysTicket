@@ -36,7 +36,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCreado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaEstado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCierre', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'descripcion', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'categoriaId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'prioridad', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioSolicitanteId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioAsignadoId');
+            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCreado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaEstado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCierre', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'descripcion', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'categoriaId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'prioridad', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioSolicitanteId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioAsignadoId'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCreado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaEstado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCierre', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'descripcion', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'categoriaId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'prioridad', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioSolicitanteId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioAsignadoId');
+        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCreado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaEstado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'fechaCierre', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'descripcion', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'categoriaId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'prioridad', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioSolicitanteId', '' . "\0" . 'AppBundle\\Entity\\Ticket' . "\0" . 'usuarioAsignadoId'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setFechaCreado($fechaCreado)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaCreado', array($fechaCreado));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaCreado', [$fechaCreado]);
 
         return parent::setFechaCreado($fechaCreado);
     }
@@ -205,7 +205,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getFechaCreado()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaCreado', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaCreado', []);
 
         return parent::getFechaCreado();
     }
@@ -216,7 +216,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setFechaEstado($fechaEstado)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaEstado', array($fechaEstado));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaEstado', [$fechaEstado]);
 
         return parent::setFechaEstado($fechaEstado);
     }
@@ -227,7 +227,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getFechaEstado()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaEstado', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaEstado', []);
 
         return parent::getFechaEstado();
     }
@@ -238,7 +238,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setFechaCierre($fechaCierre)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaCierre', array($fechaCierre));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaCierre', [$fechaCierre]);
 
         return parent::setFechaCierre($fechaCierre);
     }
@@ -249,7 +249,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getFechaCierre()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaCierre', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaCierre', []);
 
         return parent::getFechaCierre();
     }
@@ -260,7 +260,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setDescripcion($descripcion)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescripcion', array($descripcion));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescripcion', [$descripcion]);
 
         return parent::setDescripcion($descripcion);
     }
@@ -271,7 +271,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getDescripcion()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDescripcion', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDescripcion', []);
 
         return parent::getDescripcion();
     }
@@ -282,7 +282,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setCategoriaId($categoriaId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategoriaId', array($categoriaId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategoriaId', [$categoriaId]);
 
         return parent::setCategoriaId($categoriaId);
     }
@@ -293,7 +293,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getCategoriaId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCategoriaId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCategoriaId', []);
 
         return parent::getCategoriaId();
     }
@@ -304,7 +304,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setEstado($estado)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEstado', array($estado));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEstado', [$estado]);
 
         return parent::setEstado($estado);
     }
@@ -315,7 +315,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getEstado()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEstado', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEstado', []);
 
         return parent::getEstado();
     }
@@ -326,7 +326,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setPrioridad($prioridad)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPrioridad', array($prioridad));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPrioridad', [$prioridad]);
 
         return parent::setPrioridad($prioridad);
     }
@@ -337,7 +337,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getPrioridad()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPrioridad', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPrioridad', []);
 
         return parent::getPrioridad();
     }
@@ -348,7 +348,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setUsuarioSolicitanteId($usuarioSolicitanteId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsuarioSolicitanteId', array($usuarioSolicitanteId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsuarioSolicitanteId', [$usuarioSolicitanteId]);
 
         return parent::setUsuarioSolicitanteId($usuarioSolicitanteId);
     }
@@ -359,7 +359,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getUsuarioSolicitanteId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsuarioSolicitanteId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsuarioSolicitanteId', []);
 
         return parent::getUsuarioSolicitanteId();
     }
@@ -370,7 +370,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function setUsuarioAsignadoId($usuarioAsignadoId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsuarioAsignadoId', array($usuarioAsignadoId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsuarioAsignadoId', [$usuarioAsignadoId]);
 
         return parent::setUsuarioAsignadoId($usuarioAsignadoId);
     }
@@ -381,7 +381,7 @@ class Ticket extends \AppBundle\Entity\Ticket implements \Doctrine\ORM\Proxy\Pro
     public function getUsuarioAsignadoId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsuarioAsignadoId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsuarioAsignadoId', []);
 
         return parent::getUsuarioAsignadoId();
     }

@@ -93,8 +93,9 @@ class XmlFileLoader extends FileLoader
             return;
         }
 
+        $defaultDirectory = dirname($file);
         foreach ($imports as $import) {
-            $this->setCurrentDir(dirname($file));
+            $this->setCurrentDir($defaultDirectory);
             $this->import($import->getAttribute('resource'), null, (bool) XmlUtils::phpize($import->getAttribute('ignore-errors')), $file);
         }
     }
@@ -186,7 +187,7 @@ class XmlFileLoader extends FileLoader
         }
 
         if ($deprecated = $this->getChildren($service, 'deprecated')) {
-            $definition->setDeprecated(true, $deprecated[0]->nodeValue);
+            $definition->setDeprecated(true, $deprecated[0]->nodeValue ?: null);
         }
 
         $definition->setArguments($this->getArgumentsAsPhp($service, 'argument'));
@@ -246,6 +247,10 @@ class XmlFileLoader extends FileLoader
                 }
                 // keep not normalized key for BC too
                 $parameters[$name] = XmlUtils::phpize($node->nodeValue);
+            }
+
+            if ('' === $tag->getAttribute('name')) {
+                throw new InvalidArgumentException(sprintf('The tag name for service "%s" in %s must be a non-empty string.', (string) $service->getAttribute('id'), $file));
             }
 
             $definition->addTag($tag->getAttribute('name'), $parameters);
@@ -310,6 +315,10 @@ class XmlFileLoader extends FileLoader
                 if ($services = $this->getChildren($node, 'service')) {
                     $definitions[$id] = array($services[0], $file, false);
                     $services[0]->setAttribute('id', $id);
+
+                    // anonymous services are always private
+                    // we could not use the constant false here, because of XML parsing
+                    $services[0]->setAttribute('public', 'false');
                 }
             }
         }
@@ -320,11 +329,7 @@ class XmlFileLoader extends FileLoader
                 // give it a unique name
                 $id = sprintf('%s_%d', hash('sha256', $file), ++$count);
                 $node->setAttribute('id', $id);
-
-                if ($services = $this->getChildren($node, 'service')) {
-                    $definitions[$id] = array($node, $file, true);
-                    $services[0]->setAttribute('id', $id);
-                }
+                $definitions[$id] = array($node, $file, true);
             }
         }
 
@@ -332,10 +337,6 @@ class XmlFileLoader extends FileLoader
         krsort($definitions);
         foreach ($definitions as $id => $def) {
             list($domElement, $file, $wild) = $def;
-
-            // anonymous services are always private
-            // we could not use the constant false here, because of XML parsing
-            $domElement->setAttribute('public', 'false');
 
             if (null !== $definition = $this->parseDefinition($domElement, $file)) {
                 $this->container->setDefinition($id, $definition);
@@ -368,21 +369,22 @@ class XmlFileLoader extends FileLoader
                 $arg->setAttribute('key', $arg->getAttribute('name'));
             }
 
-            if (!$arg->hasAttribute('key')) {
-                $key = !$arguments ? 0 : max(array_keys($arguments)) + 1;
-            } else {
-                $key = $arg->getAttribute('key');
-            }
-
-            // parameter keys are case insensitive
-            if ('parameter' == $name && $lowercase) {
-                $key = strtolower($key);
-            }
-
             // this is used by DefinitionDecorator to overwrite a specific
             // argument of the parent definition
             if ($arg->hasAttribute('index')) {
                 $key = 'index_'.$arg->getAttribute('index');
+            } elseif (!$arg->hasAttribute('key')) {
+                // Append an empty argument, then fetch its key to overwrite it later
+                $arguments[] = null;
+                $keys = array_keys($arguments);
+                $key = array_pop($keys);
+            } else {
+                $key = $arg->getAttribute('key');
+
+                // parameter keys are case insensitive
+                if ('parameter' == $name && $lowercase) {
+                    $key = strtolower($key);
+                }
             }
 
             switch ($arg->getAttribute('type')) {
@@ -413,7 +415,7 @@ class XmlFileLoader extends FileLoader
                     $arguments[$key] = $arg->nodeValue;
                     break;
                 case 'constant':
-                    $arguments[$key] = constant($arg->nodeValue);
+                    $arguments[$key] = constant(trim($arg->nodeValue));
                     break;
                 default:
                     $arguments[$key] = XmlUtils::phpize($arg->nodeValue);
@@ -435,7 +437,7 @@ class XmlFileLoader extends FileLoader
     {
         $children = array();
         foreach ($node->childNodes as $child) {
-            if ($child instanceof \DOMElement && $child->localName === $name && $child->namespaceURI === self::NS) {
+            if ($child instanceof \DOMElement && $child->localName === $name && self::NS === $child->namespaceURI) {
                 $children[] = $child;
             }
         }
@@ -506,7 +508,9 @@ $imports
 EOF
         ;
 
+        $disableEntities = libxml_disable_entity_loader(false);
         $valid = @$dom->schemaValidateSource($source);
+        libxml_disable_entity_loader($disableEntities);
 
         foreach ($tmpfiles as $tmpfile) {
             @unlink($tmpfile);
@@ -552,7 +556,7 @@ EOF
     private function loadFromExtensions(\DOMDocument $xml)
     {
         foreach ($xml->documentElement->childNodes as $node) {
-            if (!$node instanceof \DOMElement || $node->namespaceURI === self::NS) {
+            if (!$node instanceof \DOMElement || self::NS === $node->namespaceURI) {
                 continue;
             }
 
@@ -566,7 +570,7 @@ EOF
     }
 
     /**
-     * Converts a \DomElement object to a PHP array.
+     * Converts a \DOMElement object to a PHP array.
      *
      * The following rules applies during the conversion:
      *
@@ -580,11 +584,11 @@ EOF
      *
      *  * The nested-tags are converted to keys (<foo><foo>bar</foo></foo>)
      *
-     * @param \DomElement $element A \DomElement instance
+     * @param \DOMElement $element A \DOMElement instance
      *
      * @return array A PHP array
      */
-    public static function convertDomElementToArray(\DomElement $element)
+    public static function convertDomElementToArray(\DOMElement $element)
     {
         return XmlUtils::convertDomElementToArray($element);
     }

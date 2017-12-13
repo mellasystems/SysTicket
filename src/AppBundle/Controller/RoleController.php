@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class RoleController extends Controller
 {
     /**
-     * @Route("usuario", name="usuariolista")
+     * @Route("role", name="usuariolistja")
      */
     public function indexAction(Request $request)
     {

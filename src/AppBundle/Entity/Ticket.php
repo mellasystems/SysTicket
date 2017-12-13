@@ -311,4 +311,3 @@ class Ticket
         return $this->usuarioAsignadoId;
     }
 }
-

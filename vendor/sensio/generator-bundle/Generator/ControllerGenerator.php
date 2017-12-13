@@ -23,11 +23,6 @@ class ControllerGenerator extends Generator
 {
     private $filesystem;
 
-    /**
-     * Constructor.
-     *
-     * @param Filesystem $filesystem A Filesystem instance
-     */
     public function __construct(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
@@ -52,7 +47,7 @@ class ControllerGenerator extends Generator
         );
 
         foreach ($actions as $i => $action) {
-            // get the actioname without the suffix Action (for the template logical name)
+            // get the action name without the suffix Action (for the template logical name)
             $actions[$i]['basename'] = substr($action['name'], 0, -6);
             $params = $parameters;
             $params['action'] = $actions[$i];
@@ -60,7 +55,10 @@ class ControllerGenerator extends Generator
             // create a template
             $template = $actions[$i]['template'];
             if ('default' == $template) {
-                $template = $bundle->getName().':'.$controller.':'.substr($action['name'], 0, -6).'.html.'.$templateFormat;
+                @trigger_error('The use of the "default" keyword is deprecated. Use the real template name instead.', E_USER_DEPRECATED);
+                $template = $bundle->getName().':'.$controller.':'.
+                    strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr(substr($action['name'], 0, -6), '_', '.')))
+                    .'.html.'.$templateFormat;
             }
 
             if ('twig' == $templateFormat) {
@@ -89,7 +87,7 @@ class ControllerGenerator extends Generator
         if (file_exists($file)) {
             $content = file_get_contents($file);
         } elseif (!is_dir($dir = $bundle->getPath().'/Resources/config')) {
-            mkdir($dir);
+            self::mkdir($dir);
         }
 
         $controller = $bundle->getName().':'.$controller.':'.$action['basename'];
@@ -140,7 +138,7 @@ EOT;
                 // edit current file
                 $pointer = strpos($content, 'return');
                 if (!preg_match('/(\$[^ ]*).*?new RouteCollection\(\)/', $content, $collection) || false === $pointer) {
-                    throw new \RunTimeException('Routing.php file is not correct, please initialize RouteCollection.');
+                    throw new \RuntimeException('Routing.php file is not correct, please initialize RouteCollection.');
                 }
 
                 $content = substr($content, 0, $pointer);
@@ -169,10 +167,10 @@ EOT;
             if ($write) {
                 fclose($flink);
             } else {
-                throw new \RunTimeException(sprintf('We cannot write into file "%s", has that file the correct access level?', $file));
+                throw new \RuntimeException(sprintf('We cannot write into file "%s", has that file the correct access level?', $file));
             }
         } else {
-            throw new \RunTimeException(sprintf('Problems with generating file "%s", did you gave write access to that directory?', $file));
+            throw new \RuntimeException(sprintf('Problems with generating file "%s", did you gave write access to that directory?', $file));
         }
     }
 
@@ -183,16 +181,16 @@ EOT;
         return $data['controller'].'/'.$data['template'];
     }
 
-    protected function parseLogicalTemplateName($logicalname, $part = '')
+    protected function parseLogicalTemplateName($logicalName, $part = '')
     {
-        if (2 !== substr_count($logicalname, ':')) {
-            throw new \RuntimeException(sprintf('The given template name ("%s") is not correct (it must contain two colons).', $logicalname));
+        if (2 !== substr_count($logicalName, ':')) {
+            throw new \RuntimeException(sprintf('The given template name ("%s") is not correct (it must contain two colons).', $logicalName));
         }
 
         $data = array();
 
-        list($data['bundle'], $data['controller'], $data['template']) = explode(':', $logicalname);
+        list($data['bundle'], $data['controller'], $data['template']) = explode(':', $logicalName);
 
-        return ($part ? $data[$part] : $data);
+        return $part ? $data[$part] : $data;
     }
 }

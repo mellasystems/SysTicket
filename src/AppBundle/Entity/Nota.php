@@ -156,4 +156,3 @@ class Nota
         return $this->descripcionNota;
     }
 }
-

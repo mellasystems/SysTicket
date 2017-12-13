@@ -22,23 +22,12 @@ use Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceExceptio
  */
 abstract class FileLoader extends Loader
 {
-    /**
-     * @var array
-     */
     protected static $loading = array();
 
-    /**
-     * @var FileLocatorInterface
-     */
     protected $locator;
 
     private $currentDir;
 
-    /**
-     * Constructor.
-     *
-     * @param FileLocatorInterface $locator A FileLocatorInterface instance
-     */
     public function __construct(FileLocatorInterface $locator)
     {
         $this->locator = $locator;
@@ -111,6 +100,9 @@ abstract class FileLoader extends Loader
             try {
                 $ret = $loader->load($resource, $type);
             } catch (\Exception $e) {
+                unset(self::$loading[$resource]);
+                throw $e;
+            } catch (\Throwable $e) {
                 unset(self::$loading[$resource]);
                 throw $e;
             }

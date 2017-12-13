@@ -94,4 +94,3 @@ class UsuarioCategoria
         return $this->categoriaId;
     }
 }
-

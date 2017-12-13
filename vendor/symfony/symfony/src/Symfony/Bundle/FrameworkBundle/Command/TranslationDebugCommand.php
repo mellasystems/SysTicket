@@ -21,6 +21,8 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Translation\Catalogue\MergeOperation;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Component\Translation\LoggingTranslator;
 
 /**
  * Helps finding unused or missing translation messages in a given locale
@@ -53,7 +55,7 @@ class TranslationDebugCommand extends ContainerAwareCommand
                 new InputOption('all', null, InputOption::VALUE_NONE, 'Load messages from all registered bundles'),
             ))
             ->setDescription('Displays translation messages information')
-            ->setHelp(<<<EOF
+            ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command helps finding unused or missing translation
 messages and comparing them with the fallback ones by inspecting the
 templates and translation files of a given bundle or the app folder.
@@ -92,9 +94,9 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output = new SymfonyStyle($input, $output);
+        $io = new SymfonyStyle($input, $output);
         if (false !== strpos($input->getFirstArgument(), ':d')) {
-            $output->caution('The use of "translation:debug" command is deprecated since version 2.7 and will be removed in 3.0. Use the "debug:translation" instead.');
+            $io->caution('The use of "translation:debug" command is deprecated since version 2.7 and will be removed in 3.0. Use the "debug:translation" instead.');
         }
 
         $locale = $input->getArgument('locale');
@@ -151,7 +153,7 @@ EOF
                 $outputMessage .= sprintf(' and domain "%s"', $domain);
             }
 
-            $output->warning($outputMessage);
+            $io->warning($outputMessage);
 
             return;
         }
@@ -201,7 +203,7 @@ EOF
             }
         }
 
-        $output->table($headers, $rows);
+        $io->table($headers, $rows);
     }
 
     private function formatState($state)
@@ -301,7 +303,7 @@ EOF
     {
         $fallbackCatalogues = array();
         $translator = $this->getContainer()->get('translator');
-        if ($translator instanceof Translator) {
+        if ($translator instanceof Translator || $translator instanceof DataCollectorTranslator || $translator instanceof LoggingTranslator) {
             foreach ($translator->getFallbackLocales() as $fallbackLocale) {
                 if ($fallbackLocale === $locale) {
                     continue;

@@ -36,7 +36,7 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'nombreCategoria');
+            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'nombreCategoria'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'nombreCategoria');
+        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\CategoriaTicket' . "\0" . 'nombreCategoria'];
     }
 
     /**
@@ -97,7 +97,7 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
     public function setNombreCategoria($nombreCategoria)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNombreCategoria', array($nombreCategoria));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNombreCategoria', [$nombreCategoria]);
 
         return parent::setNombreCategoria($nombreCategoria);
     }
@@ -205,7 +205,7 @@ class CategoriaTicket extends \AppBundle\Entity\CategoriaTicket implements \Doct
     public function getNombreCategoria()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNombreCategoria', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNombreCategoria', []);
 
         return parent::getNombreCategoria();
     }

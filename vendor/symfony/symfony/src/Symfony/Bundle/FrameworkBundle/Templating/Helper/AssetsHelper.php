@@ -78,7 +78,7 @@ class AssetsHelper extends Helper
 
         // packageName is null and path not, so path is a path or a packageName
         try {
-            $package = $this->packages->getPackage($path);
+            $this->packages->getPackage($path);
         } catch (\InvalidArgumentException $e) {
             // path is not a package, so it should be a path
             return $this->packages->getVersion($path);
@@ -95,13 +95,14 @@ class AssetsHelper extends Helper
         if ($version) {
             $package = $this->packages->getPackage($packageName);
 
-            $v = new \ReflectionProperty($package, 'versionStrategy');
+            $v = new \ReflectionProperty('Symfony\Component\Asset\Package', 'versionStrategy');
             $v->setAccessible(true);
 
             $currentVersionStrategy = $v->getValue($package);
 
             $f = new \ReflectionProperty($currentVersionStrategy, 'format');
             $f->setAccessible(true);
+
             $format = $f->getValue($currentVersionStrategy);
 
             $v->setValue($package, new StaticVersionStrategy($version, $format));

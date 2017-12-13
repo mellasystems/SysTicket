@@ -11,9 +11,11 @@
 
 namespace Sensio\Bundle\GeneratorBundle\Command;
 
+use Sensio\Bundle\GeneratorBundle\Manipulator\RoutingManipulator;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\QuestionHelper;
 use Sensio\Bundle\GeneratorBundle\Generator\ControllerGenerator;
@@ -55,7 +57,7 @@ but don't forget to pass all needed options:
 <info>php %command.full_name% --controller=AcmeBlogBundle:Post --no-interaction</info>
 
 Every generated file is based on a template. There are default templates but they can
-be overriden by placing custom templates in one of the following locations, by order of priority:
+be overridden by placing custom templates in one of the following locations, by order of priority:
 
 <info>BUNDLE_PATH/Resources/SensioGeneratorBundle/skeleton/controller
 APP_PATH/Resources/SensioGeneratorBundle/skeleton/controller</info>
@@ -72,7 +74,7 @@ EOT
         $questionHelper = $this->getQuestionHelper();
 
         if ($input->isInteractive()) {
-            $question = new Question($questionHelper->getQuestion('Do you confirm generation', 'yes', '?'), true);
+            $question = new ConfirmationQuestion($questionHelper->getQuestion('Do you confirm generation', 'yes', '?'), true);
             if (!$questionHelper->ask($input, $output, $question)) {
                 $output->writeln('<error>Command aborted</error>');
 
@@ -97,8 +99,20 @@ EOT
 
         $questionHelper->writeSection($output, 'Controller generation');
 
+        $routingFormat = $input->getOption('route-format');
+        /** @var ControllerGenerator $generator */
         $generator = $this->getGenerator($bundle);
-        $generator->generate($bundle, $controller, $input->getOption('route-format'), $input->getOption('template-format'), $this->parseActions($input->getOption('actions')));
+        $generator->generate(
+            $bundle,
+            $controller,
+            $routingFormat,
+            $input->getOption('template-format'),
+            $this->parseActions($input->getOption('actions'))
+        );
+
+        if ('annotations' === $routingFormat) {
+            $this->tryUpdateAnnotationRouting($bundle, $controller);
+        }
 
         $output->writeln('Generating the bundle code: <info>OK</info>');
 
@@ -108,7 +122,7 @@ EOT
     public function interact(InputInterface $input, OutputInterface $output)
     {
         $questionHelper = $this->getQuestionHelper();
-        $questionHelper->writeSection($output, 'Welcome to the Symfony2 controller generator');
+        $questionHelper->writeSection($output, 'Welcome to the Symfony controller generator');
 
         // namespace
         $output->writeln(array(
@@ -121,8 +135,11 @@ EOT
             '',
         ));
 
+        $bundleNames = array_keys($this->getContainer()->get('kernel')->getBundles());
+
         while (true) {
             $question = new Question($questionHelper->getQuestion('Controller name', $input->getOption('controller')), $input->getOption('controller'));
+            $question->setAutocompleterValues($bundleNames);
             $question->setValidator(array('Sensio\Bundle\GeneratorBundle\Command\Validators', 'validateControllerName'));
             $controller = $questionHelper->ask($input, $output, $question);
             list($bundle, $controller) = $this->parseShortcutNotation($controller);
@@ -178,10 +195,8 @@ EOT
         $input->setOption('actions', $this->addActions($input, $output, $questionHelper));
 
         // summary
+        $questionHelper->writeSection($output, 'Summary before generation');
         $output->writeln(array(
-            '',
-            $this->getHelper('formatter')->formatBlock('Summary before generation', 'bg=blue;fg-white', true),
-            '',
             sprintf('You are going to generate a "<info>%s:%s</info>" controller', $bundle, $controller),
             sprintf('using the "<info>%s</info>" format for the routing and the "<info>%s</info>" format', $routeFormat, $templateFormat),
             'for templating',
@@ -243,8 +258,10 @@ EOT
             $placeholders = $this->getPlaceholdersFromRoute($route);
 
             // template
-            $defaultTemplate = $input->getOption('controller').':'.substr($actionName, 0, -6).'.html.'.$input->getOption('template-format');
-            $question = new Question($questionHelper->getQuestion('Templatename (optional)', $defaultTemplate), 'default');
+            $defaultTemplate = $input->getOption('controller').':'.
+                strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr(substr($actionName, 0, -6), '_', '.')))
+                .'.html.'.$input->getOption('template-format');
+            $question = new Question($questionHelper->getQuestion('Template name (optional)', $defaultTemplate), $defaultTemplate);
             $template = $questionHelper->ask($input, $output, $question);
 
             // adding action
@@ -326,5 +343,16 @@ EOT
     protected function createGenerator()
     {
         return new ControllerGenerator($this->getContainer()->get('filesystem'));
+    }
+
+    private function tryUpdateAnnotationRouting($bundleName, $controller)
+    {
+        $routing = new RoutingManipulator($this->getContainer()->getParameter('kernel.root_dir').'/config/routing.yml');
+
+        if ($routing->hasResourceInAnnotation($bundleName)) {
+            return;
+        }
+
+        $routing->addAnnotationController($bundleName, $controller);
     }
 }

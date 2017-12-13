@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\Form\Tests\Util;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Util\StringUtil;
 
-class StringUtilTest extends \PHPUnit_Framework_TestCase
+class StringUtilTest extends TestCase
 {
     public function testTrim()
     {
@@ -72,6 +73,33 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
             array('0085'),
             // zero width space
 //            array('200B'),
+        );
+    }
+
+    /**
+     * @dataProvider fqcnToBlockPrefixProvider
+     */
+    public function testFqcnToBlockPrefix($fqcn, $expectedBlockPrefix)
+    {
+        $blockPrefix = StringUtil::fqcnToBlockPrefix($fqcn);
+
+        $this->assertSame($expectedBlockPrefix, $blockPrefix);
+    }
+
+    public function fqcnToBlockPrefixProvider()
+    {
+        return array(
+            array('TYPE', 'type'),
+            array('\Type', 'type'),
+            array('\UserType', 'user'),
+            array('UserType', 'user'),
+            array('Vendor\Name\Space\Type', 'type'),
+            array('Vendor\Name\Space\UserForm', 'user_form'),
+            array('Vendor\Name\Space\UserType', 'user'),
+            array('Vendor\Name\Space\usertype', 'user'),
+            array('Symfony\Component\Form\Form', 'form'),
+            array('Vendor\Name\Space\BarTypeBazType', 'bar_type_baz'),
+            array('FooBarBazType', 'foo_bar_baz'),
         );
     }
 }

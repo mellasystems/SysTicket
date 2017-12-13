@@ -38,7 +38,7 @@ rm -rf /tmp/Symfony
 mkdir /tmp/Symfony
 
 # Create project
-composer create-project -n symfony/framework-standard-edition /tmp/Symfony $2
+composer create-project --prefer-dist --no-interaction symfony/framework-standard-edition /tmp/Symfony $2
 
 if [ 0 -ne $? ]; then
     echo "\033[37;41mVersion $2 does not exist\033[0m"
@@ -48,8 +48,8 @@ fi
 cd /tmp/Symfony
 
 # cleanup
-rm -rf app/cache/* app/logs/* .git*
-chmod 777 app/cache app/logs
+rm -rf app/cache/* app/logs/* var/cache/* var/logs/*
+chmod 777 app/cache app/logs var/cache var/logs
 find . -name .DS_Store | xargs rm -rf -
 
 VERSION=`grep ' VERSION ' vendor/symfony/symfony/src/Symfony/Component/HttpKernel/Kernel.php | sed -E "s/.*'(.+)'.*/\1/g"`

@@ -156,4 +156,3 @@ class HistorialTicket
         return $this->estado;
     }
 }
-

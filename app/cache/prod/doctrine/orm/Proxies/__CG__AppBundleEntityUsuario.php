@@ -36,7 +36,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = array();
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -64,10 +64,10 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'nombres', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'apellidos', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'username', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'password', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'tipoUsuario', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'rolId', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'fechaRegistro');
+            return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'nombres', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'apellidos', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'username', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'password', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'tipoUsuario', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'rolId', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'fechaRegistro'];
         }
 
-        return array('__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'nombres', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'apellidos', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'username', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'password', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'tipoUsuario', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'rolId', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'fechaRegistro');
+        return ['__isInitialized__', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'id', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'nombres', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'apellidos', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'username', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'password', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'tipoUsuario', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'rolId', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'estado', '' . "\0" . 'AppBundle\\Entity\\Usuario' . "\0" . 'fechaRegistro'];
     }
 
     /**
@@ -97,7 +97,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
      */
     public function __clone()
     {
-        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', array());
+        $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
     }
 
     /**
@@ -105,7 +105,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
      */
     public function __load()
     {
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__load', []);
     }
 
     /**
@@ -183,7 +183,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
         }
 
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
     }
@@ -194,7 +194,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setNombres($nombres)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNombres', array($nombres));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNombres', [$nombres]);
 
         return parent::setNombres($nombres);
     }
@@ -205,7 +205,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getNombres()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNombres', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNombres', []);
 
         return parent::getNombres();
     }
@@ -216,7 +216,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setApellidos($apellidos)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setApellidos', array($apellidos));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setApellidos', [$apellidos]);
 
         return parent::setApellidos($apellidos);
     }
@@ -227,7 +227,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getApellidos()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getApellidos', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getApellidos', []);
 
         return parent::getApellidos();
     }
@@ -238,7 +238,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setUsername($username)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsername', array($username));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsername', [$username]);
 
         return parent::setUsername($username);
     }
@@ -249,7 +249,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getUsername()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsername', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsername', []);
 
         return parent::getUsername();
     }
@@ -260,7 +260,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setPassword($password)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', array($password));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', [$password]);
 
         return parent::setPassword($password);
     }
@@ -271,7 +271,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getPassword()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPassword', []);
 
         return parent::getPassword();
     }
@@ -282,7 +282,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setTipoUsuario($tipoUsuario)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTipoUsuario', array($tipoUsuario));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTipoUsuario', [$tipoUsuario]);
 
         return parent::setTipoUsuario($tipoUsuario);
     }
@@ -293,7 +293,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getTipoUsuario()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTipoUsuario', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTipoUsuario', []);
 
         return parent::getTipoUsuario();
     }
@@ -304,7 +304,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setRolId($rolId)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRolId', array($rolId));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRolId', [$rolId]);
 
         return parent::setRolId($rolId);
     }
@@ -315,7 +315,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getRolId()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRolId', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRolId', []);
 
         return parent::getRolId();
     }
@@ -326,7 +326,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setEstado($estado)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEstado', array($estado));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEstado', [$estado]);
 
         return parent::setEstado($estado);
     }
@@ -337,7 +337,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getEstado()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEstado', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEstado', []);
 
         return parent::getEstado();
     }
@@ -348,7 +348,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function setFechaRegistro($fechaRegistro)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaRegistro', array($fechaRegistro));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFechaRegistro', [$fechaRegistro]);
 
         return parent::setFechaRegistro($fechaRegistro);
     }
@@ -359,7 +359,7 @@ class Usuario extends \AppBundle\Entity\Usuario implements \Doctrine\ORM\Proxy\P
     public function getFechaRegistro()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaRegistro', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFechaRegistro', []);
 
         return parent::getFechaRegistro();
     }

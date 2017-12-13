@@ -31,8 +31,6 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
 
     /**
      * Process the ContainerBuilder to replace DefinitionDecorator instances with their real Definition instances.
-     *
-     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
@@ -136,6 +134,7 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
         $def->setFile($parentDef->getFile());
         $def->setPublic($parentDef->isPublic());
         $def->setLazy($parentDef->isLazy());
+        $def->setAutowired($parentDef->isAutowired());
 
         // overwrite with values specified in the decorator
         $changes = $definition->getChanges();
@@ -169,12 +168,15 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
         if (isset($changes['deprecated'])) {
             $def->setDeprecated($definition->isDeprecated(), $definition->getDeprecationMessage('%service_id%'));
         }
+        if (isset($changes['autowire'])) {
+            $def->setAutowired($definition->isAutowired());
+        }
         if (isset($changes['decorated_service'])) {
             $decoratedService = $definition->getDecoratedService();
             if (null === $decoratedService) {
                 $def->setDecoratedService($decoratedService);
             } else {
-                $def->setDecoratedService($decoratedService[0], $decoratedService[1]);
+                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2]);
             }
         }
 
@@ -211,6 +213,7 @@ class ResolveDefinitionTemplatesPass implements CompilerPassInterface
         // these attributes are always taken from the child
         $def->setAbstract($definition->isAbstract());
         $def->setScope($definition->getScope(false), false);
+        $def->setShared($definition->isShared());
         $def->setTags($definition->getTags());
 
         return $def;

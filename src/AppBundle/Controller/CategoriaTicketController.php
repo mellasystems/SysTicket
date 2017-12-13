@@ -10,11 +10,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
+/**
+     * @Route("categoriaticket", name="udsdsuariolista")
+     */
 class CategoriaTicketController extends Controller
 {
     /**
-     * @Route("usuario", name="usuariolista")
+     * @Route("/", name="usuariolidsadasdsta")
      */
     public function indexAction(Request $request)
     {

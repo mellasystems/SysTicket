@@ -32,9 +32,7 @@ class Route
     private $condition;
 
     /**
-     * Constructor.
-     *
-     * @param array $data An array of key/value parameters.
+     * @param array $data An array of key/value parameters
      *
      * @throws \BadMethodCallException
      */

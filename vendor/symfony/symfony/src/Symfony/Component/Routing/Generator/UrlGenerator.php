@@ -27,14 +27,7 @@ use Psr\Log\LoggerInterface;
  */
 class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInterface
 {
-    /**
-     * @var RouteCollection
-     */
     protected $routes;
-
-    /**
-     * @var RequestContext
-     */
     protected $context;
 
     /**
@@ -42,9 +35,6 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
      */
     protected $strictRequirements = true;
 
-    /**
-     * @var LoggerInterface|null
-     */
     protected $logger;
 
     /**
@@ -75,13 +65,6 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         '%7C' => '|',
     );
 
-    /**
-     * Constructor.
-     *
-     * @param RouteCollection      $routes  A RouteCollection instance
-     * @param RequestContext       $context The context
-     * @param LoggerInterface|null $logger  A logger instance
-     */
     public function __construct(RouteCollection $routes, RequestContext $context, LoggerInterface $logger = null)
     {
         $this->routes = $routes;
@@ -216,16 +199,7 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
             $scheme = $this->context->getScheme();
 
             if ($requiredSchemes) {
-                $schemeMatched = false;
-                foreach ($requiredSchemes as $requiredScheme) {
-                    if ($scheme === $requiredScheme) {
-                        $schemeMatched = true;
-
-                        break;
-                    }
-                }
-
-                if (!$schemeMatched) {
+                if (!in_array($scheme, $requiredSchemes, true)) {
                     $referenceType = self::ABSOLUTE_URL;
                     $scheme = current($requiredSchemes);
                 }
@@ -287,7 +261,10 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         }
 
         // add a query string if needed
-        $extra = array_diff_key($parameters, $variables, $defaults);
+        $extra = array_udiff_assoc(array_diff_key($parameters, $variables), $defaults, function ($a, $b) {
+            return $a == $b ? 0 : 1;
+        });
+
         if ($extra && $query = http_build_query($extra, '', '&')) {
             // "/" and "?" can be left decoded for better user experience, see
             // http://tools.ietf.org/html/rfc3986#section-3.4
