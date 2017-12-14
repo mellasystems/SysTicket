@@ -2,6 +2,10 @@
 namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -15,8 +19,6 @@ use Symfony\Component\Form\Form;
  */
 class UsuarioController extends Controller
 {
-
-    //api
     // APIs
 
     /**
@@ -27,12 +29,29 @@ class UsuarioController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $usuario = $this->getDoctrine()->getRepository(Usuario::class)->findAll();
-        $usuarioD = json_decode($this->get('serializer')->serialize($usuario, 'json'), true);
+        return $this->render('AppBundle:Usuario:usuario.html.twig');
+        //$usuario = $this->getDoctrine()->getRepository(Usuario::class)->findAll();
+        //$usuarioD = json_decode($this->get('serializer')->serialize($usuario, 'json'), true);
 
-        return new JsonResponse($usuarioD);
+        //return new JsonResponse($usuarioD);
     }
 
+    /**
+     * @Route("/registrar", name="registrar", options={"expose"=true})
+     * @param Request $request
+     * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newAction(Request $request){
+
+        $usuario = new Usuario();
+
+        $form = $this->createForm(UsuarioType::class, $usuario);
+
+        return $this->render('AppBundle:Usuario:registrar.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 
     /**
      * @Route("/{id}", name="get_usuario", requirements={"id"="\d+"} )
@@ -85,7 +104,6 @@ class UsuarioController extends Controller
 
     private function getFormErrors(Form $form)
     {
-
         $errors = array();
         foreach ($form->getErrors() as $error) {
             $errors[] = $error->getMessage();
@@ -102,5 +120,4 @@ class UsuarioController extends Controller
         }
         return $errors;
     }
-
 }

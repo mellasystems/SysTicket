@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <!-- Mirrored from www.ravijaiswal.com/Afro-v.1.1/tables.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 19 Mar 2017 03:12:20 GMT -->
 <head>
 <meta charset="UTF-8"/>
@@ -15,13 +14,13 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/libs/nanoscroller.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/compiled/theme_styles.css')}}"/>
 <link rel="stylesheet" href="{{ asset('assets/css/libs/daterangepicker.css" type="text/css')}}"/>
-<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+<link type="image/x-icon" href="{{ asset('assets/img/favicon.png')}}" rel="shortcut icon"/>
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="{{  asset('assets/js/html5shiv.js') }}"></script>
+    <script src="{{  asset('assets/js/respond.min.js') }}"></script>
   <![endif]-->
 <!-- DATATABLES -->
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatables/jquery.dataTables.min.css')}}">    
@@ -93,7 +92,7 @@ Jose Mella G.
 <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
 <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="index-2.html">
+<a href="{{ path('homepage') }}">
 <i class="fa fa-dashboard"></i>
 <span>Escritorio</span>
 </a>
@@ -132,17 +131,17 @@ Permisos
 </a>
 <ul class="submenu">
 <li>
-<a href="tables.html">
+<a href="{{ path('crear_ticket')}}">
 Tickets
 </a>
 </li>
 <li>
-<a href="tables-advanced.html">
+<a href="{{ path('crear_nota') }}">
 Notas
 </a>
 </li>
 <li>
-<a href="/usuario">
+<a href="{{ path('lista_usuario') }}">
 Usuarios
 </a>
 </li>
